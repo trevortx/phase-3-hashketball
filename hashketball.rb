@@ -1,4 +1,3 @@
-# Write your code below game_hash
 def game_hash
   {
     home: {
@@ -126,4 +125,54 @@ def game_hash
   }
 end
 
-# Write code here
+def get_player name
+  all_players = game_hash[:home][:players] + game_hash[:away][:players]
+  player = all_players.find {|players| players[:player_name] == name}
+  player
+end
+
+def get_team team_name
+  both_teams = [game_hash[:home]] + [game_hash[:away]]
+  team = both_teams.find {|name| name[:team_name] == team_name}
+  team
+end
+
+def num_points_scored name
+  player = get_player name
+  player[:points]
+end
+
+def shoe_size name
+  player = get_player name
+  player[:shoe]
+end
+
+def team_colors team_name
+  team = get_team(team_name)
+  team[:colors]
+end
+
+def team_names
+  both_teams = [game_hash[:home][:team_name]] + [game_hash[:away][:team_name]]
+  both_teams
+end
+
+def player_numbers team_name
+  team = get_team(team_name)[:players]
+  jersey_numbers = []
+  team.map do |player|
+    jersey_numbers << player[:number]
+  end
+  jersey_numbers
+end
+
+def player_stats name
+  player = get_player(name)
+  player
+end
+
+def big_shoe_rebounds
+  all_players = game_hash[:home][:players] + game_hash[:away][:players]
+  sorted_by_shoe = all_players.sort_by {|player| player[:shoe]}.reverse!
+  sorted_by_shoe[0][:rebounds]
+end
